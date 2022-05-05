@@ -1,0 +1,440 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<head lang="en">
+	<meta http-equiv="content-type" content="text/html;charset=utf-8">
+	<title>Dating App</title>
+	<!-- Framework CSS -->
+	<link rel="stylesheet" href="assets/blueprint-css/screen.css" type="text/css" media="screen, projection">
+	<link rel="stylesheet" href="assets/blueprint-css/print.css" type="text/css" media="print">
+	<!--[if lt IE 8]><link rel="stylesheet" href="assets/blueprint-css/ie.css" type="text/css" media="screen, projection"><![endif]-->
+	<link rel="stylesheet" href="assets/blueprint-css/plugins/fancy-type/screen.css" type="text/css" media="screen, projection">
+	<style type="text/css" media="screen">
+		p, table, hr, .box { margin-bottom:25px; }
+		.box p { margin-bottom:10px; }
+	</style>
+</head>
+
+
+<body>
+	<div class="container">
+	
+		<h3 class="center alt">&ldquo;Dating App&rdquo; Documentation by &ldquo;Demyanchuk Dmitry&rdquo; v3.7</h3>
+		
+		<hr>
+		
+		<h1 class="center">&ldquo;Dating App&rdquo;</h1>
+		
+		<div class="borderTop">
+			<div class="span-6 colborder info prepend-1">
+				<p class="prepend-top">
+					<strong>
+					Created: 10/06/2018<br>
+					By: Demyanchuk Dmitry<br>
+					Email: <a href="mailto:raccoonsquare@gmail.com">raccoonsquare@gmail.com</a>
+					</strong>
+				</p>
+			</div><!-- end div .span-6 -->		
+	
+			<div class="span-12 last">
+				<p class="prepend-top append-0">Thank you for purchasing my Dating App If you have any questions that are beyond the scope of this help file, please feel free to email via my user page contact form <a href="http://codecanyon.net/user/qascript/?ref=qascript">here</a> or <a href="https://www.facebook.com/raccoonsquare" target="_blank">here</a>. Thanks so much!</p>
+			</div>
+		</div><!-- end div .borderTop -->
+		
+		<hr>
+		
+		<h2 id="toc" class="alt">Table of Contents</h2>
+		<ol>
+			<li><a href="#overview">Overview</a></li>
+			<li><a href="#step">Step by step</a></li>
+			<li><a href="#phpInstall">PHP Installation Process</a></li>
+			<li><a href="#androidInstall">Configure application for Android</a></li>
+			<li><a href="#emoji">How to add emoji support?</a></li>
+			<li><a href="#update">How to update?</a></li>
+			<li><a href="#billing_key">Where can I get BILLING KEY?</a></li>
+			<li><a href="#add_new_product">How to add a product to sell?</a></li>
+			<li><a href="#addLanguage">Adding a new language (WEB SITE)</a></li>
+			<li><a href="#firebase_get_server_key_and_sender_id">Firebase get Server Key and Sender Id?</a></li>
+		</ol>
+		<ol class="alpha">
+			<li><a href="#phpEngineStructure">PHP Engine structure</a></li>
+			<li><a href="#faq">FAQ</a></li>
+		</ol>
+		
+		<hr>
+
+		<h3 id="overview"><strong>1) Overview</strong> - <a href="#toc">top</a></h3>
+
+		<p>
+			<b>Advice:</b>
+			<ol>
+				<li>To upload files to the server, use specialized programs, such as: FileZilla</li>
+				<li>To edit a php file has special editors are, for example: Sublime Text, phpStorm, Notepad ++. Do not use the standard editor Windows: Notepad! Notepad can change the encoding of a php file and you'll get an error!</a></li>
+			</ol>
+		</p>
+		
+		<p>This is important, please read:</p>
+
+		<p>How to get GOOGLE API KEY, SENDER_ID and banner_ad_unit_id read here <a target="_blank" href="http://ifsoft.co.uk/help/">http://ifsoft.co.uk/help</a></p>
+
+		<p>error_reporting:
+			<br>
+			Default error_reporting set to E_ALL.
+			<br>
+			To set error_reporting to 0 - edit the file /core/init.inc.php
+		</p>
+
+		<p>All user data is cleaned with the following code (functions can be edited in the file: class/class.helper.inc.php):</p>
+		<pre>
+static function clearText($text) {
+
+	$text = trim($text);
+	$text = strip_tags($text);
+	$text = htmlspecialchars($text);
+
+	return $text;
+}
+
+static function clearInt($value) {
+
+	$value = intval($value);
+
+	return $value;
+}
+		</pre>
+		
+		<hr>
+
+		<h3 id="step"><strong>2) Step by Step</strong> - <a href="#toc">top</a></h3>
+
+		<p>
+			<b>Here I will describe the basic sequence of steps.</b>
+		</p>
+
+		<p>
+			<b>Server part:</b>
+
+			<ol>
+				<li>Prepare hosting. Create an empty (new) database, etc.</li>
+				<li>Upload files to server. Example, See here: http://ifsoft.co.uk/help/how_to_upload_script_on_the_server/</li>
+				<li>Configure web part config (you server/sys/config/db.inc.php). <a href="#phpInstall">See here</a></li>
+				<li>For installation you need "purchase code". How to get "purchase code" you can see here: <a href="http://ifsoft.co.uk/help/how_to_get_purchase_code/" target="_blank">How to get purchase code?</a> or in the official Envato documentation</li>
+				<li>Enter in browser: yousite.com/install.php and Install script</li>
+			</ol>
+		</p>
+
+		<p>
+			<b>Android App:</b>
+			
+			<ol>
+				<li>Open project in Android Studio</li>
+				<li>Rename package</li>
+				<li>Configure FCM. <a target="_blank" href="http://ifsoft.co.uk/help/how_to_create_fcm/">See here</a> (in strep 3 Click -> Add Firebase to your Android app)</li>
+				<li>Configure App config (constants/Constants.java). <a href="#androidInstall">See here</a></li>
+				<li>Run App for test.</li>
+			</ol>
+		</p>
+
+		<p>I describe only main steps! For more information about configuring in documentation and comments (in config files)</p>
+
+		<p>
+			<b>Some information:</b>
+
+			<ol>
+				<li>Error 500, usually it's the reasons: 1) Not entered, or entered incorrect data from the database in the db.inc.php config 2) you are using nginx server . In any case, see the server error log for details</li>
+				<li>I do not use local server for testing and development. Only real server (hosting).</li>
+				<li>I use Linux hosting with apache, php and MySQL</li>
+				<li>Most users choose GoDaddy Hosting</li>
+				<li>Server part is not working correctly on hosting for Wordpress (maybe a problem in .htaccess files from Worpress hosting)</li>
+				<li>I do not use emulators. I use only real devices for testing and development. Reason: for example, FCM does not work on emulator. Sometimes works ;)</li>
+				<li>I always use latest version of Android Studio</li>
+				<li>Admin panel login page here: yousite.com/admin/login.php</li>
+				<li>File "mysql" is not need! Tables in the database are automatically created!</li>
+				<li>Do not copy folder with Android Studio project to directory with the long name! Android Studio does not handle path length more 240 characters! An example of the correct directory structure: C:\myprojects\datingapp</li>
+			</ol>
+		</p>
+		
+		<hr>
+
+		<h3 id="phpInstall"><strong>3) Php Installation Process</strong> - <a href="#toc">top</a></h3>
+		
+		<p>Configure the server part with fast three easy steps!</p>
+		<p>How to upload script to the server, read here: <a href="http://ifsoft.co.uk/help/how_to_upload_script_on_the_server/" target="_blank">How to upload script to the server</a></p>
+
+		<ol>
+			<li>Open and edit config/db.inc.php (edit the data on the selected image)</li>
+<pre>
+	$B['CLIENT_ID'] = 1;
+	$B['APP_URL'] = "edit to your domain example: http://yourdomain.com";
+	$C['DB_HOST'] = "localhost or your db host";
+	$C['DB_USER'] = "your db user";
+	$C['DB_PASS'] = "your db password";
+	$C['DB_NAME'] = "your db name";
+</pre>
+			<img src="assets/images/php_install.png" alt="PHP Engine Structure" />
+			<li>Upload the script to the root server.</li>
+			<li>Open in browser: http://your_site.com/install.php - You create the first user (administrator account), which will be open full access to the admin panel.</li>
+			<li>Admin Panel Login Page: http://your_site.com/admin/login.php</li>
+		</ol>
+		
+		<p></p>
+		<p>If you correctly follow the three simple steps, then the browser will automatically redirect you to the admin panel!</p>
+		
+		<hr>
+
+		<h3 id="androidInstall"><strong>4) Configure application for Android</strong> - <a href="#toc">top</a></h3>
+		
+		<p>Application for Android created with Android Studio.</p>
+		<p>Android application Structure - is a common project structure Android Studio. To get started with the application you need to edit a few constants:</p>
+
+		<ol>
+			<li>Open the project in the editor (preferably in Android Studio). You may need to adjust the Android SDK Location in the Project Structure (Ctrl + Alt + Shift + S).</li>
+			<li>Change API_DOMAIN on your domain (file Constants.java). Also, you can change the values: CLIENT_ID, SENDER_ID.</li>
+			<img src="assets/images/android_install.png" alt="Android" />
+
+			<li>Change banner_ad_unit_id and app_email (optional)</li>
+			<img src="assets/images/android_install_2.png" alt="Android" />
+		</ol>
+
+		<p>As you can see here is very simple!</p>
+
+		<hr>
+
+		<h3 id="emoji"><strong>5) How to add emoji support?</strong> - <a href="#toc">top</a></h3>
+		
+		<p><b>Caution! It is important!</b></p>
+		<p><b>For correct storage emoji characters in the database requires MySQL version not lower than 5.5.3! Before any action is required to create a backup of all databases, a comparison that will change!</b></p>
+
+		<ol>
+			<li>Find out which version of MySQL is running on your server. Character set utf8mb4 introduced in MySQL starting from version 5.5.3, on this, you'll need to update your version of MySQL server if it is lower than this, or ask it to do your system administrator.</li>
+			<li>Type in your browser: http://yousite.com/enable_emoji.php and press Enter (Database will be automatically corrected).</li>
+			<li>
+				<ol class="alpha">
+					<li>Open the file /core/init.inc.php.</li>
+					<li>Find the line (29): <b>$dbo = new PDO ($dsn, DB_USER, DB_PASS, array (PDO::MYSQL_ATTR_INIT_COMMAND => "SET NAMES utf8"));</b></li>
+					<li>Replace line to: <b>$dbo = new PDO ($dsn, DB_USER, DB_PASS, array (PDO::MYSQL_ATTR_INIT_COMMAND => "SET NAMES utf8mb4"));</b></li>
+					<li>Save the file.</li>
+				</ol>
+			</li>
+			<li>
+				<ol class="alpha">
+					<li>Open the file /class/class.db_connect.inc.php.</li>
+					<li>Find the line (31): <b>$this->db = new PDO($dsn, DB_USER, DB_PASS, array(PDO::MYSQL_ATTR_INIT_COMMAND => "SET NAMES utf8"));</b></li>
+					<li>Replace line to: <b>$this->db = new PDO($dsn, DB_USER, DB_PASS, array(PDO::MYSQL_ATTR_INIT_COMMAND => "SET NAMES utf8mb4"));</b></li>
+					<li>Save the file.</li>
+				</ol>
+			</li>
+			<li>If done correctly and MySQL version not lower than 5.5.3: Everything will work!</li>
+		</ol>
+
+		<p><b>I did not support the default character set utf8mb4, because some users are on their servers MySQL version lower than 5.5.3</b></p>
+		<p><b>Correction is subject only: messages, posts and comments tables! This means that will add support emoji only in personal messages, posts and comments!</b></p>
+		
+		<hr>
+
+		<h3 id="update"><strong>6) How to update?</strong> - <a href="#toc">top</a></h3>
+		
+		<p><b>Caution! It is important!</b></p>
+
+		<p><b>Folders "Android Project (client)" and "PHP Engine (server)" - Always include the newest, full source code!</b></p>
+
+		<p>Hello.</p>
+		<ol class="alpha">
+			<li>Update all files or only files in a folder Update_3.5_to_3.6 (Only if you are upgrading from version 3.5 to version 3.6)</li>
+			<li>File "Constants.java" was modified - you need to replace this file and reconfigure</li>
+			<li>File "core/init.inc.php" was modified - you need to replace this file and reconfigure (add emoji support)</li>
+			<li>I RECOMMEND TO REMOVE THE TABLES FROM THE DATABASE "notifications", "profile_likes", "profile_followers". (DELETE TTABLES NOT NECESSARILY. AFTER "yousite.com/update.php" NEW CLEAN TABLES WILL BE CREATED AUTOMATICALLY)</li>
+			<li>After upgrading server side files Enter in browser: yousite.com/update.php for database correction</li>
+		</ol>
+
+		<p><b>Be careful! "Update_3.5_to_3.6" folder contains only changed and new files.</b></p>
+
+		<hr>
+
+		<h3 id="billing_key"><strong>7) Where can I get BILLING KEY?</strong> - <a href="#toc">top</a></h3>
+
+		<ol>
+			<li>Go to your Google Play Developer Console (<a target="_blank" href="http://play.google.com/apps/publish">http://play.google.com/apps/publish</a>)</li>
+			<li>Select your application in the list or create a new (if not created)</li>
+			<li>See the picture:</li>
+
+			<img src="assets/images/billing_key.png" alt="Android" />
+		</ol>
+
+		
+		<hr>
+
+		<h3 id="add_new_product"><strong>8) How to add a product to sell?</strong> - <a href="#toc">top</a></h3>
+
+		<ol>
+			<li>Go to your Google Play Developer Console (<a target="_blank" href="http://play.google.com/apps/publish">http://play.google.com/apps/publish</a>)</li>
+			<li>Select your application in the list or create a new (if not created)</li>
+			<li>Upload apk file (if not already uploaded)</li>
+			<li>Next, see the pictures:</li>
+
+			<img src="assets/images/add_new_product_1.png" alt="Android" />
+			<img src="assets/images/add_new_product_2.png" alt="Android" />
+		</ol>
+
+		<p><b>Caution! It is important! Item numbered (4) the need to perform 3 times!</b></p>
+		<p><b>
+			<ol>
+				<li>Product ID: ifsoft.co.uk.iap1 | Description: Buy 30 Credits ($1)</li>
+				<li>Product ID: ifsoft.co.uk.iap2 | Description: Buy 70 Credits ($2)</li>
+				<li>Product ID: ifsoft.co.uk.iap3 | Description: Buy 120 Credits ($3)</li>
+			</ol>
+		</b></p>
+		
+		<hr>
+
+		<h3 id="addLanguage"><strong>9) Adding a new language (WEB SITE)</strong> - <a href="#toc">top</a></h3>
+		
+		<p>Add a new language is very easy! Let's see an example with the addition of the German language:</p>
+
+		<ol>
+			<li>Copy the file lang/en.php to lang/de.php;</li>
+			<li>Make translating text strings in the file lang/de.php to German;</li>
+			<li>Open the file config/db.inc.php and at the end of the file add the line: $ LANGS ['Deutsch'] = "de";</li>
+			<img src="assets/images/phpengine_add_language.png" alt="PHP Engine Structure" />
+		</ol>
+		
+		<hr>
+
+		<h3 id="firebase_get_server_key_and_sender_id"><strong>10) Firebase get Server Key and Sender Id?</strong> - <a href="#toc">top</a></h3>
+
+		<ol>
+			<li>Go to your Firabase Console (<a target="_blank" href="https://console.firebase.google.com/">https://console.firebase.google.com/</a>)</li>
+			<li>Select your project, create a new (if not created) or import from google (<a target="_blank" href="http://ifsoft.co.uk/help/how_to_migrate_from_gcm_to_fcm/">http://ifsoft.co.uk/help/how_to_migrate_from_gcm_to_fcm/</a>)</li>
+			<li><img src="assets/images/firebase_server_key_and_sender_id.png" alt="Android" /></li>
+		</ol>
+		
+		<hr>
+		
+		<h3 id="phpEngineStructure"><strong>A) PHP Engine structure</strong> - <a href="#toc">top</a></h3>
+		<p>The structure of the project consists of four main directories:</p>
+		
+		<img src="assets/images/phpenginestructure.png" alt="PHP Engine Structure" />
+
+		<p>1. admin - directory contains admin panel html files.</p>
+		<p>2. api - directory contains methods that are called from the application.</p>
+		<p>3. class - directory includes php class files.</p>
+		<p>4. common - directory includes header, footer, topbar files for admin panel.</p>
+		<p>5. config - directory contains the files needed for work and application settings: configuration files.</p>
+		<p>6. core - directory contains the files needed for work and application settings: configuration files.</p>
+		<p>7. css - directory include these files: css.</p>
+		<p>8. img - directory include these files: image files.</p>
+		<p>9. js - directory include these files: js.</p>
+
+		<hr>
+		
+		<h3 id="faq"><strong>B) FAQ</strong> - <a href="#toc">top</a></h3>
+
+		<p>
+			<b>1. Where to change the time string (1m ago, 10h ago)?</b>
+			<br>
+			<div>Watch and edit the file class/class.language.inc.php on the server side.</div>
+		</p>
+
+		<p>
+			<b>2. Why can not I send messages gcm?</b>
+			<br>
+			<div>First, check whether you have enabled on the server module curl (the most common problem). Check the settings on your application to Google Console</div>
+		</p>
+
+		<p>
+			<b>3. Why can not I upload a picture?</b>
+			<br>
+			<div>Set the directory (server side) cover, images, photo, chat_images permissions: 755</div>
+		</p>
+
+		<p>
+			<b>4. How to change the package name?</b>
+			<br>
+			<div>There are many ways to do this (use Google). Personally, I prefer to do so: <a target="_blank" href="http://stackoverflow.com/questions/16804093/android-studio-rename-package">http://stackoverflow.com/questions/16804093/android-studio-rename-package</a></div>
+		</p>
+
+		<p>
+			<b>5. How to generate the hash keys for Facebook app?</b>
+			<div>As I personally generates keys - I wrote here: <a target="_blank" href="http://ifsoft.co.uk/help/how_to_create_android_facebook_key_hash/">http://ifsoft.co.uk/help/how_to_create_android_facebook_key_hash/</a>
+			<br>
+			Also, this information is detailed in the official documentation Facebook</div>
+		</p>
+
+		<p>
+			<b>6. Where to change the text for the sections Acknowledgements and Terms of Use?</b>
+			<div>
+				The server side, files:
+				<br>
+				api\v1\method\app.thanks.inc.php 
+				<br>
+				api\v1\method\app.terms.inc.php
+			</div>
+		</p>
+
+		<p>
+			<b>7. How to translate the application into another language?</b>
+			<div>
+				All string constants in the file strings.xml (Android project). Time constants in the file /class/class.language.inc.php (server part)
+			</div>
+		</p>
+
+		<p>
+			<b>8. What is CLIENT_ID?</b>
+			<div>
+				CLIENT_ID - integer by which server (script) identifies your Android app. CLIENT_ID - you need to create (generate) yourself! For example: 1754
+			</div>
+		</p>
+
+		<p>
+			<b>9. How to change the application icon and logo?</b>
+			<div>
+				See screenshots:
+				<br>
+				<img src="assets/images/app_icon.png">
+				<img src="assets/images/app_logo.png">
+			</div>
+		</p>
+
+		<p>
+			<b>10. How do I change the order of items on the left sidebar?</b>
+			<div>
+				Files that should be changed:
+				<ol>
+					<li> res/values/strings.xml (array: navDrawerItems and array: navDrawerIcons)</li>
+					<li> MainActivity.java (lot code) is mainly a function displayView</li>
+					<li> adapter/NavDrawerAdapter.java – may need correction</li>
+				</ol>
+				<b>Be very careful when editing these files!</b>
+			</div>
+		</p>
+
+		<p>
+			<b>11. How change notifications alert icon in application?</b>
+			<div>
+				File "res/drawable/ic_action_push_notification.png"
+			</div>
+		</p>
+
+		<p>
+			<b>12. How to change application color scheme?</b>
+			<div>
+				All color constants in the "res/values/colors.xml" file
+			</div>
+		</p>
+
+		<p>
+			<b>13. Does not work password recovery function with hotmail and yahoo mail??</b>
+			<div>
+				This is not a problem in the script and no problem with the phpmailer module! Read here: <a target="_blank" href="https://stackoverflow.com/a/41515497">https://stackoverflow.com/a/41515497</a> and here <a target="_blank" href="https://github.com/PHPMailer/PHPMailer/issues/238">https://github.com/PHPMailer/PHPMailer/issues/238</a>
+			</div>
+		</p>
+		
+		<hr>
+		
+		<p>Once again, thank you so much for purchasing this application. As I said at the beginning, I'd be glad to help you if you have any questions relating to this theme. No guarantees, but I'll do my best to assist. If you have a more general question relating to the application on CodeCanyon, you might consider visiting the forums and asking your question in the "Item Discussion" section.</p> 
+		
+		<p class="append-bottom alt large"><strong>Demyanchuk Dmitry</strong></p>
+		<p><a href="#toc">Go To Table of Contents</a></p>
+		
+		<hr class="space">
+	</div><!-- end div .container -->
+</body>
+</html>
